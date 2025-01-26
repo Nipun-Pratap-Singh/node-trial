@@ -1,0 +1,27 @@
+{
+    "name": "node-mysql-app",
+    "version": "1.0.0",
+    "description": "A Node.js application with MySQL and a basic frontend",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "keywords": [
+        "node",
+        "mysql",
+        "express",
+        "docker"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "dotenv": "^16.4.7",
+        "express": "^4.18.2",
+        "mysql2": "^3.2.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}

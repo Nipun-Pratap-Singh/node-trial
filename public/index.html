@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management</title>
+</head>
+<body>
+  <h1>Student Management System</h1>
+  <form id="student-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="roll_no">Roll No:</label>
+    <input type="number" id="roll_no" name="roll_no" required>
+    <button type="submit">Add Student</button>
+  </form>
+  <h2>Student List</h2>
+  <ul id="student-list"></ul>
+  <script>
+    const form = document.getElementById('student-form');
+    const studentList = document.getElementById('student-list');
+
+    // Submit form data to the backend
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const roll_no = document.getElementById('roll_no').value;
+      const response = await fetch('/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, roll_no }),
+      });
+      if (response.ok) {
+        alert('Student added successfully!');
+        loadStudents();
+      } else {
+        alert('Failed to add student!');
+      }
+      form.reset();
+    });
+
+    // Load and display student list
+    async function loadStudents() {
+      const response = await fetch('/students');
+      const students = await response.json();
+      studentList.innerHTML = students.map(student => `
+        <li>${student.name} (Roll No: ${student.roll_no})</li>
+      `).join('');
+    }
+
+    loadStudents(); // Load students on page load
+  </script>
+</body>
+</html>
